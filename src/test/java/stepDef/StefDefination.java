@@ -39,10 +39,10 @@ public class StefDefination {
 	@When("^I enter valid username \"([^\"]*)\" and password \"([^\"]*)\"$")
 	public void iEnterValidCredentials(String username, String password) {
 
-		WebElement email = driver.findElement(By.id("modalusername"));
+		WebElement email = driver.findElement(By.xpath("//input[@placeholder='email']"));
 		email.sendKeys(username);
 
-		WebElement pass = driver.findElement(By.id("current-password"));
+		WebElement pass = driver.findElement(By.xpath("//input[@placeholder='password']"));
 		pass.sendKeys(password);
 		System.out.println("entered valid username and password");
 
@@ -51,22 +51,21 @@ public class StefDefination {
 	@When("^I enter invalid username \"([^\"]*)\" and password \"([^\"]*)\"$")
 	public void iEnterInvalidCredentials(String username, String password) {
 
-		WebElement email = driver.findElement(By.id("modalusername"));
+		WebElement email = driver.findElement(By.xpath("//input[@placeholder='email']"));
 		email.sendKeys(username);
 
-		WebElement pass = driver.findElement(By.id("current-password"));
+		WebElement pass = driver.findElement(By.xpath("//input[@placeholder='password']"));
 		pass.sendKeys(password);
-		System.out.println("entered invalid username and password");
-
+		System.out.println("entered valid username and password");
 	}
 
 	@When("^I leave the username and password fields empty$")
 	public void iLeaveEmptyFields() {
 
-		WebElement email = driver.findElement(By.id("modalusername"));
+		WebElement email = driver.findElement(By.xpath("//input[@placeholder='email']"));
 		email.sendKeys("");
 
-		WebElement pass = driver.findElement(By.id("current-password"));
+		WebElement pass = driver.findElement(By.xpath("//input[@placeholder='password']"));
 		pass.sendKeys("");
 		System.out.println("empty username and password");
 
@@ -75,7 +74,7 @@ public class StefDefination {
 	@When("^I click on the login button$")
 	public void iClickLoginButton() {
 
-		WebElement logbtn = driver.findElement(By.xpath("//span[text()='Log in']"));
+		WebElement logbtn = driver.findElement(By.xpath("//button[@type='submit']"));
 		logbtn.click();
 		System.out.println("click on login button");
 
@@ -85,7 +84,7 @@ public class StefDefination {
 	public void i_click_on_the_link(String string) {
 		JavascriptExecutor js = (JavascriptExecutor) driver;
 		wait = new WebDriverWait(driver, Duration.ofSeconds(30));
-		WebElement forgotpass = driver.findElement(By.xpath("//div[@class='LoginModal_forgot_pwd_wrapper__qttSX']//a"));
+		WebElement forgotpass = driver.findElement(By.xpath("//button[@type='button']"));
 		wait.until(ExpectedConditions.visibilityOf(forgotpass));
 		js.executeScript("arguments[0].click();", forgotpass);
 //		forgotpass.click();
@@ -98,7 +97,7 @@ public class StefDefination {
 		Thread.sleep(10000);
 		String actual = driver.getTitle();
 		wait.until(ExpectedConditions.titleContains(actual));
-		Assert.assertEquals("My learning | W3Schools", actual);
+		Assert.assertEquals("W3Schools Pathfinder", actual);
 		System.out.println("dashbard page verify and display");
 		driver.close();
 
@@ -108,8 +107,8 @@ public class StefDefination {
 	public void iShouldSeeInvalidCredentialsError() {
 		wait = new WebDriverWait(driver, Duration.ofSeconds(30));
 
-		WebElement errorMsg = driver.findElement(By.xpath("//div[text()='A user with this email does not exist']"));
-		Assert.assertEquals("A user with this email does not exist", errorMsg.getText());
+		WebElement errorMsg = driver.findElement(By.xpath("//*[contains(text(),'Sorry, looks like that’s the wrong email or password.')]"));
+		Assert.assertEquals("Sorry, looks like that’s the wrong email or password.",errorMsg.getText());
 		System.out.println("error message displayed");
 		driver.close();
 
@@ -118,8 +117,8 @@ public class StefDefination {
 	@Then("^I should see an error message indicating required fields$")
 	public void iShouldSeeRequiredFieldsError() {
 
-		WebElement spanError = driver.findElement(By.xpath("//span[text()='Please enter an email']"));
-		Assert.assertEquals("Please enter an email", spanError.getText());
+		WebElement spanError = driver.findElement(By.xpath("//*[contains(text(),'Please enter your email and password')]"));
+		Assert.assertEquals("Please enter your email and password", spanError.getText());
 		System.out.println("error message displayed for required fields");
 		driver.close();
 
@@ -139,10 +138,10 @@ public class StefDefination {
 	@When("I enter username {string} and password {string}")
 	public void i_enter_username_and_password(String string, String string2) {
 		
-		WebElement email = driver.findElement(By.id("modalusername"));
+		WebElement email = driver.findElement(By.xpath("//input[@placeholder='email']"));
 		email.sendKeys(string);
 
-		WebElement pass = driver.findElement(By.id("current-password"));
+		WebElement pass = driver.findElement(By.xpath("//input[@placeholder='password']"));
 		pass.sendKeys(string2);
 		System.out.println("entered invalid username and password");
 	    

@@ -5,7 +5,6 @@ Feature: User Login
 
   Background:
     Given I am on the login page
-    
 
   Scenario: Valid login credentials
     When I enter valid username "shubhamshedge810@gmail.com" and password "AdminShubham@123"
@@ -16,7 +15,7 @@ Feature: User Login
     When I enter invalid username "shubhamshed@gfmail.com" and password "122ddsds"
     And I click on the login button
     Then I should see an error message indicating invalid credentials
-    
+
   Scenario: Empty login fields
     When I leave the username and password fields empty
     And I click on the login button
@@ -25,15 +24,15 @@ Feature: User Login
   Scenario: Forgot password
     When I click on the "Forgot Password?" link
     Then I should be redirected to the password recovery page
-    
-  @run 
+  
+  @run
   Scenario Outline: Login with different credentials
     When I enter username "<username>" and password "<password>"
     And I click on the login button
-    Then I should be redirected to my learning dashboard
+    Then I should <outcome>
 
     Examples:
-      | username                   | password         |
-      | shubhamshedge810@gmail.com | AdminShubham@123|
-      | shubhamshed@gfmail.com     | 122ddsds        |
-      | ssnansajnhed@gfmail.com     | 2328hjshd      |
+      | username                   | password          | outcome                           |
+      | shubhamshedge810@gmail.com | AdminShubham@123  | be redirected to my learning dashboard |
+      | shubhamshed@gfmail.com     | 122ddsds          | see an error message indicating invalid credentials |
+      | ssnansajnhed@gfmail.com    | 2328hjshd         | see an error message indicating invalid credentials |
